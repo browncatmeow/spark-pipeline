@@ -1,3 +1,4 @@
+// Databricks notebook source exported at 12 Mar 2017
 // MAGIC %md # Step 0: Import your data
 // MAGIC 
 // MAGIC Use the movielens dataset provided with Spark.
