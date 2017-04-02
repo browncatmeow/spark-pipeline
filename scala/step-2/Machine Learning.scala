@@ -14,9 +14,9 @@ val df = // Load your DataFrame
 
 // COMMAND ----------
 
-val userColumn = "YOUR_USER_COLUMN" // the name of the column containing user id's in the DataFrame
-val itemColumn = "YOUR_ITEM_COLUMN" // the name of the column containing item id's in the DataFrame
-val ratingColumn = "YOUR_RATING_COLUMN" // the name of the column containing ratings in the DataFrame
+val userColumn = "user" // the name of the column containing user id's in the DataFrame
+val itemColumn = "item" // the name of the column containing item id's in the DataFrame
+val ratingColumn = "rating" // the name of the column containing ratings in the DataFrame
 
 val userIdColumn = userColumn + "Id" // change this to your convenience
 val itemIdColumn = itemColumn + "Id" // change this to your convenience
@@ -35,6 +35,7 @@ val itemIdColumn = itemColumn + "Id" // change this to your convenience
 // COMMAND ----------
 
 val hash = udf((value: Any) => value.##)
+// This will create a user defined fx where it converts the value to an integer?
 
 // COMMAND ----------
 
@@ -54,6 +55,8 @@ distinctUsers - distinctUserIds
 // MAGIC %md If the result of the previous command is 0, continue to the next part, if not, try the following
 
 // COMMAND ----------
+
+// DO THE BELOW ONLY IF THE ABOVE distinctUsers - distinctUserIds did not return 0
 
 import org.apache.spark.sql.functions._
 
@@ -148,18 +151,24 @@ val Array(trainDf, testDf) = inputDf.select(
 trainDf.cache()
 trainDf.count // materialize trainDf
 
+// NEED TO TRANSFORM THE trainDf rating column to integertype to prevent error when creating cvModel
+val trainDf2 =trainDf.select($"userId",$"itemId",$"rating".cast(IntegerType).as("rating"))
+
 // COMMAND ----------
 
-val cvModel = cv.fit(trainDf)
+val cvModel = cv.fit(trainDf2)
 
 // COMMAND ----------
 
 // The CrossValidator will use the best performing model against the validation set
 val output = cvModel.transform(testDf)
 
+// NEED TO TRANSFORM THE output rating column to integertype to prevent error when running it into rsmeEval
+val output2 = output.select($"userId",$"itemId",$"rating".cast(IntegerType).as("rating"),$"prediction")
+
 // COMMAND ----------
 
-rmseEval.evaluate(output)
+rmseEval.evaluate(output2)
 
 // COMMAND ----------
 
@@ -168,7 +177,7 @@ rmseEval.evaluate(output)
 
 // COMMAND ----------
 
-val nonNull = output.na.drop()
+val nonNull = output2.na.drop()
 
 // COMMAND ----------
 
@@ -176,8 +185,8 @@ rmseEval.evaluate(nonNull)
 
 // COMMAND ----------
 
-display(nonNull)
-
+// THIS COMMAND gives error: display(nonNull)
+nonNull.show()
 // COMMAND ----------
 
 // MAGIC %md ### From here, how you progress is up to you.
