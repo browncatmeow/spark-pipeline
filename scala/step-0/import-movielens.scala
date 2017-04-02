@@ -1,23 +1,21 @@
-// Databricks notebook source exported at Sat, 26 Dec 2015 14:00:02 UTC
-// MAGIC %md # Step 0: Import your data
-// MAGIC 
-// MAGIC Use the movielens dataset provided with Spark.
+val sqlContext= new org.apache.spark.sql.SQLContext(sc)
+import sqlContext.implicits._
 
-// COMMAND ----------
+import org.apache.spark.sql._
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types._
 
-// assumes you are under $SPARK_HOME
-val rdd = sc.textFile("data/mllib/sample_movielens_data.txt").map { line =>
-  val Array(user, item, rating) = line.split("::")
+import spark.implicits._
+import spark.sql
+
+val rdd = sc.textFile("/Users/wt/Desktop/spark-2.1.0-bin-hadoop2.7/data/mllib/sample_movielens_data.txt").map { line =>
+
+val Array(user, item, rating) = line.split("::")
+
   (user, item, rating)
-}
 
-// COMMAND ----------
+}
 
 val df = sqlContext.createDataFrame(rdd).toDF("user", "item", "rating")
 
-// COMMAND ----------
-
 df.show
-
-// COMMAND ----------
-
