@@ -1,4 +1,4 @@
-// Databricks notebook source exported at Sat, 26 Dec 2015 13:47:34 UTC
+// Databricks notebook source exported at 12 Mar 2017
 // MAGIC %md # Step 1: Understand your Data
 // MAGIC 
 // MAGIC The first step of doing anything with data is taking a look at it.
@@ -39,9 +39,9 @@ df.describe().show()
 
 // COMMAND ----------
 
-val userColumn = "YOUR_USER_COLUMN" // the name of the column containing user id's in the DataFrame
-val itemColumn = "YOUR_ITEM_COLUMN" // the name of the column containing item id's in the DataFrame
-val ratingColumn = "YOUR_RATING_COLUMN" // the name of the column containing ratings in the DataFrame
+val userColumn = "user" // the name of the column containing user id's in the DataFrame
+val itemColumn = "item" // the name of the column containing item id's in the DataFrame
+val ratingColumn = "rating" // the name of the column containing ratings in the DataFrame
 
 // COMMAND ----------
 
@@ -83,8 +83,8 @@ df.select(min(ratingColumn), max(ratingColumn)).show()
 
 // COMMAND ----------
 
-val minRating = // copy values from above
-val maxRating = // copy values from above
+val minRating = 1// copy values from above
+val maxRating = 5// copy values from above
 val step = 0.5 // change this to your liking
 
 // COMMAND ----------
