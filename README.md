@@ -1,5 +1,6 @@
 # spark-pipeline
-Example End-to-End Data Pipeline with Apache Spark from Data Analysis to Data Product
+Example End-to-End Data Pipeline with Apache Spark from Data Analysis to Data Product.
+
 This is largely a clone of: https://github.com/brkyvz/spark-pipeline
 
 ### Scenario 
