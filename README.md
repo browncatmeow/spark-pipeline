@@ -33,9 +33,3 @@ querying through a Web Service.
  - Step 3: We will monitor the response times of our web services using Spark Streaming
 and send notifications when we come across an anomalous web service.
 
-### Contributing
-
-Feel free to submit comments, issues using the issues section. Source code contributions for
-other languages, (python, java) are welcome!
-
-
