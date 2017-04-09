@@ -3,16 +3,12 @@ Example End-to-End Data Pipeline with Apache Spark from Data Analysis to Data Pr
 
 This is largely a clone of: https://github.com/brkyvz/spark-pipeline
 
+The notebooks are accessible at [http://brkyvz.github.io/spark-pipeline](http://brkyvz.github.io/spark-pipeline).
+
 ### Scenario 
 
 As an e-commerce company, we would like to recommend products that users 
 may like in order to increase sales and profit.
-
-### Notebooks / Source Code
-
-The notebooks are accessible at [http://brkyvz.github.io/spark-pipeline](http://brkyvz.github.io/spark-pipeline).
-
-Right now, only Scala examples are available.
 
 ### Procedure
 
